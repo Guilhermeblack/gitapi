@@ -14,10 +14,15 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-//aqui nas rotas pode chamar uma funçao ou uma view
 Route::get('/', 'Painel@index');
 Route::get('/login', 'Painel@login');
 
-// //emprendimento geral
-// Route::get('/emp', 'Painel@emp_todos')->name('emp');
-// Route::post('/emp', 'Painel@emp_todos');
+//cadastros
+Route::get('/cad', 'Painel@cad_geral')->name('cad');
+Route::post('/cad', 'Painel@cad_geral')->name('cad_post');
+
+Auth::routes();
+
+Route::get('/home', 'Painel@cad_geral')->name('home');
+
+

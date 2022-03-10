@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6558f74828bca9ebecac73d90cea4b1a",
+    "content-hash": "b10b70b744af3551d005e8db1f3b2b95",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1051,6 +1051,61 @@
                 "source": "https://github.com/laravel/tinker/tree/v2.7.0"
             },
             "time": "2022-01-10T08:52:49+00:00"
+        },
+        {
+            "name": "laravel/ui",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/ui.git",
+                "reference": "d01a705763c243b07be795e9d1bb47f89260f73d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/ui/zipball/d01a705763c243b07be795e9d1bb47f89260f73d",
+                "reference": "d01a705763c243b07be795e9d1bb47f89260f73d",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^7.0",
+                "illuminate/filesystem": "^7.0",
+                "illuminate/support": "^7.0",
+                "php": "^7.2.5|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Ui\\UiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Ui\\": "src/",
+                    "Illuminate\\Foundation\\Auth\\": "auth-backend/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel UI utilities and presets.",
+            "keywords": [
+                "laravel",
+                "ui"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/ui/issues",
+                "source": "https://github.com/laravel/ui/tree/v2.5.0"
+            },
+            "time": "2020-11-03T19:45:19+00:00"
         },
         {
             "name": "league/commonmark",
@@ -2232,6 +2287,75 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "spresnac/laravel-create-user-cli",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spresnac/laravel-create-user-cli.git",
+                "reference": "bee0a3bd94588ab280a31b3fc2b31f2b5d2e38a6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spresnac/laravel-create-user-cli/zipball/bee0a3bd94588ab280a31b3fc2b31f2b5d2e38a6",
+                "reference": "bee0a3bd94588ab280a31b3fc2b31f2b5d2e38a6",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^7.4|^8.0"
+            },
+            "require-dev": {
+                "laravel/framework": "^7|^8",
+                "orchestra/testbench": "^4|^5|^6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "spresnac\\createcliuser\\CreateCliUserCommandServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "spresnac\\": "src/spresnac/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sascha Presnac",
+                    "email": "sascha.presnac@protonmail.com"
+                }
+            ],
+            "description": "Create a user-entry from cli with artisan",
+            "keywords": [
+                "cd",
+                "ci",
+                "cli",
+                "laravel",
+                "php",
+                "usermanagement"
+            ],
+            "support": {
+                "issues": "https://github.com/spresnac/laravel-create-user-cli/issues",
+                "source": "https://github.com/spresnac/laravel-create-user-cli/tree/1.0.5"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/spresnac",
+                    "type": "other"
+                },
+                {
+                    "url": "https://www.paypal.me/paladin",
+                    "type": "paypal"
+                }
+            ],
+            "time": "2021-01-08T10:09:08+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

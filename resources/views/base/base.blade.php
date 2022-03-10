@@ -60,40 +60,12 @@
                     @endguest
                     <hr class="sidebar-divider my-2" >
                     @auth
-                    <li class="nav-item nav-pills nav-fill" role="presentation"><a class="nav-link active" href="{{ url('home') }}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item " role="presentation" ><a class="" aria-expanded="false" href="{{ url('emp') }}" style="color:#fff">
-                        <div class="nav-item dropdown" style="padding: 16px;"><i class="far fa-building" style="margin-right: 4px;"></i>Empreendimento
-                                {{-- <a role="presentation" class=" dropdown-item" style="background-color: rgb(46, 85, 202); color:#fff" href="{{ url('/insumos') }}">Itens/Insumos</a> --}}
-                        </div>
-                    </li></a>
-                    <li class="nav-item" role="presentation"><a class=""  aria-expanded="false" href="{{ url('todos_orcamento') }}" style="color:#fff">
-                        <div class="nav-item " style="padding: 16px;"><i class="icon ion-clipboard" style="margin-right: 4px;"></i>Orçamentos
-                        </div></a>
-                    </li>
-                    <li class="nav-item" role="presentation" ><a class="" aria-expanded="false" href="{{ url('/insumos') }}" style="color:#fff">
-                        <div class="nav-item" style="padding: 16px;"><i class="fas fa-boxes" style="margin-right: 4px;"></i>Insumos
-                        </div>
-                    </li></a>
-                    {{-- <li class="nav-item" role="presentation" >
-                        <div class="nav-item" style="padding: 16px;"><a class="" aria-expanded="false" href="#" style="color:#fff"><i class="fas fa-hand-holding-usd" style="margin-right: 4px;"></i>Financeiro</a>
-                        </div>
-                    </li> --}}
-                    {{-- <li class="nav-item" role="presentation">
-                        <div class="nav-item" style="padding: 16px;"><a class="" aria-expanded="false" href="#" style="color:#fff"><i class="fas fa-poll" style="margin-right: 4px;"></i>Relatórios</a>
-                        </div>
-                    </li> --}}
+
                     <li class="nav-item" role="presentation"><a aria-expanded="false" href="{{ url('cad') }}" style="color:#fff">
                         <div class="nav-item" style="padding: 16px;"><i class="fas fa-user-plus" style="margin-right: 4px;"></i>Cadastro Geral
                         </div>
                     </li></a>
-                    <li class="nav-item" role="presentation">
-                        <div class="nav-item dropdown" style="padding: 16px;"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#" style="color:#fff"><i class="fas fa-cog" style="margin-right: 4px;"></i>Configurações</a>
-                            <div class="dropdown-menu" role="menu" style="background-color: rgb(46, 85, 202);widht:99%">
-                                <a class="dropdown-item" role="presentation" style="background-color: rgb(46, 85, 202); color:#fff" href="#">Orçado/Realizado</a>
-                                <a class="dropdown-item" role="presentation" style="background-color: rgb(46, 85, 202); color:#fff" href="#">Curva ABC</a>
-                            </div>
-                        </div>
-                    </li>
+
                     @endauth
                 </ul>
                 {{-- <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div> --}}
@@ -128,7 +100,7 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             @auth
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{ Auth::user()->name }}</span><img class="border rounded-circle img-profile" src="{{ asset('construmobile/img/user.PNG') }}"></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">{{ Auth::user()->name }}</span><img class="border rounded-circle img-profile" src="{{ asset('img/user.PNG') }}"></a>
                                     <div
                                         class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Perfil</a><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Settings</a>
                                             <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout') }}"

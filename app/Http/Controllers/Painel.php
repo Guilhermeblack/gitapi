@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Cliente;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\DB;
+
+
 
 
 //          CONTROLLER
@@ -29,17 +31,179 @@ class Painel extends Controller
         ]);
     }
 
+
+
+
+
+
+    public function cad_geral(Request $request)
+    {
+
+        $cliente= auth()->user();
+
+        
+        // dd($cliente->id);
+        //cadastros vinculados ao usuario
+        if($cliente){
+
+            $entidades = DB::table('clientes')
+            ->join('users', 'clientes.usr_id', '=', 'users.id' )
+            ->where('users.id', '=', $cliente->id)
+            ->select('clientes.*')
+            ->orderBy('nome')
+            ->get();
+
+        }else
+        {
+            $entidades = '';
+        }
+                // dd($entidades[0]);
+        // print_r($cliente->id); die();
+
+
+
+        if ($request->isMethod('post')) {
+
+            // dd($request);
+
+            if($request->has('alter')){
+
+                $var = $request->alter;
+                // dd($var);
+                $usr = DB::table('cliente')
+                ->where('id', $var)->get();
+                return $usr;
+
+            }
+
+            if($request->has('nome')){
+
+                // dd($request);
+
+                $url = "https://api.github.com/users/".$request->nome;
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                // curl_setopt($ch, CURLOPT_HEADER, 0);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
+
+                $dado =curl_exec($ch);
+                // dd($dado);
+                curl_close($ch);
+
+                $clie = new Cliente;
+
+                $clie->usr_id = $cliente->id;
+                $clie->nome = $nome;
+
+                // $clie->tipo = $tipo;
+
+                $clie->created_at = Carbon::now();
+
+
+
+
+                $clie->save();
+
+                $entidades = DB::table('cliente')
+                ->join('users', 'clientes.usr_id', '=', 'users.id' )
+                ->where('users.id', '=', $cliente->id)
+                ->where('clientes.deleted_at', null)
+                ->select('clientes.*')
+                ->orderBy('nome')
+                ->get();
+
+                // dd($cliente);
+                // $entidades->senha = Crypt::decrypt($entidades->senha);
+
+                return redirect()->route('cad', [
+
+                    'cli'=>$cliente,
+                    'cadastros'=> $entidades
+                ]);
+
+
+                
+
+            }
+
+            //rotina para deletar um usuario
+            if($request->has('deletar')) {
+
+                $client = $request->deletar;
+                // dd($request);
+                $usr = DB::table('cliente')
+                ->where('id', $client)
+                ->delete() ;
+
+                $entidades = DB::table('cliente')
+                ->join('users', 'clientes.usr_id', '=', 'users.id' )
+                ->where('users.id', '=', $cliente->id)
+                ->where('clientes.deleted_at',null)
+                ->select('clientes.*')
+                ->orderBy('nome')
+                ->get();
+
+                return redirect()->route('cad', [
+
+                    'cli'=>$cliente,
+                    'cadastros'=> $entidades
+                ]);
+
+            }
+
+
+                $email = $request->email;
+                $nome = $request->nome;
+                $senha = bcrypt($request->senha);
+                $senha_rep= bcrypt($request->senha_rep);
+                $usr= $request->logado;
+
+
+                    //senha invalida
+                    return redirect()->route('cad', [
+                        'cli'=>$cliente,
+                        'cadastros'=> $entidades
+                    ])->withErrors('Cadastro invalido!');
+                
+
+        }
+                    
+            
+
+
+
+        
+
+        //preencher os selects de cadastro de emp
+        // $select_tipo =
+
+
+        //   TESTAR A INSERÇÃO SETANDO OS PARAMETROS
+        // dd($cliente);
+
+        // print_r($cliente->id); die();
+        return view('cad_geral', [
+
+            'cli'=> $cliente,
+            'cadastros'=>$entidades
+        ]);
+    }
+
+ 
+
     public function login(Request $request){
 
         // \/ pesquisa ja existente      first pega o primeiro registro
-    $cliente= auth()->user();
+        $cliente= auth()->user();
 
         //   dd($cliente);
         //   TESTAR A INSERÇÃO SETANDO OS PARAMETROS
 
-    return view('login', [
-        'cli'=> $cliente
-    ]);
+        return view('login', [
+            'cli'=> $cliente
+        ]);
 
-}
+    }
 }

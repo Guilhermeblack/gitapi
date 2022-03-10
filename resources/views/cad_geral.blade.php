@@ -65,26 +65,14 @@
             <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="height: 76px;width: 100%;">
-                        <h4 class="modal-title">Cadastro Geral</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                        <h4 class="modal-title">Consulta</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
                     <div class="modal-body" style="width: 100%;margin: 3px;padding: 43px;">
                         <form class="user" method="POST" action="{{url('cad')}}">
                             {{ csrf_field() }}
                         {{-- <h2>{{$cli->id}}</h2> --}}
                             <input type="hidden" class="form-control form-control-user" id="logado" aria-describedby="User" name="logado" id="logado" value="{{$cli->id}}" />
-                            <div class="form-group"><input type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Nome" name="nome" /></div>
-                            <div class="form-group"><input type="email" class="form-control form-control-user" id="exampleInputPassword" placeholder="Email" name="email" /></div>
-                            <div class="form-group"><input type="text" class="form-control form-control-user" id="exampleInputPassword" placeholder="CPF/CNPJ" name="doc" /></div>
-                            <div class="form-group"><input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Senha" name="senha" /></div>
-                            <div class="form-group"><input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Confirme a senha" name="senha_rep" /></div>
-
-                            <div class="form-group"><select class="form-control" name="tipo">
-                                <optgroup label="Tipo Cadastro">
-                                    <option value="2" >Funcionário</option>
-                                    <option value="3" >Compras</option>
-                                    <option value="4" >Fornecedor</option>
-                                    <option value="5" >Geral</option>
-                                </optgroup></select>
-                            </div>
+                            <div class="form-group"><input type="text" class="form-control form-control-user" id="nome" aria-describedby="nomelHelp" placeholder="Nome" name="nome" /></div>
+                            
                             <button class="btn btn-primary btn-block text-white mx-auto btn-user" type="submit">CADASTRAR</button>
                             <hr/>
                             <button class="btn btn-primary btn-block text-white d-lg-flex mx-auto justify-content-lg-center btn-user" type="button" data-dismiss="modal" style="background-color: rgb(220,65,65);width: 378px;padding-left: 22px;margin-left: 0px;">SAIR</button>
@@ -119,9 +107,7 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>CPF/CNPJ</th>
                             <th>Email</th>
-                            <th>Tipo</th>
                             <th>Data de Criação</th>
                             <th>Alterar/Excluir</th>
                         </tr>
@@ -135,9 +121,7 @@
                             <tr>
                                 
                                 <td>{{ $cad->nome}}</td>
-                                <td>{{ $cad->doc}}</td>
                                 <td>{{ $cad->email}}</td>
-                                <td>{{ $cad->tipo}}</td>
                                 <td>{{ date('d-m-Y', strtotime($cad->created_at))}}</td>
                                 <td style="padding-left:5%; ">
                                     {{-- gerar rotina de exclusao e alteração --}}
@@ -154,31 +138,14 @@
                     <tfoot>
                         <tr>
                             <th>Nome</th>
-                            <th>CPF/CNPJ</th>
                             <th>Email</th>
-                            <th>Tipo</th>
                             <th>Data de Criação</th>
                             <th>Alterar/Excluir</th>
                         </tr>
                     </tfoot>
                 </table>
             </div>
-            <div class="row">
-                <div class="col-md-6 align-self-center">
-                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando 1 to 10 of 27</p>
-                </div>
-                <div class="col-md-6">
-                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                        <ul class="pagination">
-                            <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
@@ -216,16 +183,7 @@
 
                     </div>
                     <div class="form-group"><input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Nova senha..." name="senha"  /></div>
-                    <div class="form-group"><select class="form-control" name="tipo">
-                        <optgroup label="Tipo Cadastro">
-                            <option selected>Alterar tipo</option>
-                            <option value="2" >Funcionário</option>
-                            <option value="3" >Compras</option>
-                            <option value="4" >Fornecedor</option>
-                            <option value="5" >Geral</option>
-                            
-                        </optgroup></select>
-                    </div>
+  
                     <button class="btn btn-primary btn-block text-white mx-auto btn-user" type="submit">ALTERAR</button>
                     <hr/>
                     <button class="btn btn-muted btn-block text-white d-lg-flex mx-auto justify-content-lg-center btn-user" type="button" data-dismiss="modal" style="background-color: rgb(220,65,65);width: 378px;padding-left: 22px;margin-left: 0px;">SAIR</button>
