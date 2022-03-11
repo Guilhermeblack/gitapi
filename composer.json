@@ -14,7 +14,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "*",
+        "laravel/ui": "2.1",
         "spresnac/laravel-create-user-cli": "^1.0"
     },
     "require-dev": {

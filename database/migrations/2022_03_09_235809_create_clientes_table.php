@@ -17,7 +17,22 @@ class CreateClientesTable extends Migration
             
             $table->id();
             $table->bigInteger('usr_id')->unsigned();
-            $table->string('nome');
+            $table->string('login');
+            $table->string('id_git');
+            $table->string('node_id');
+            $table->string('avatar_url');
+            $table->string('gravatar_id');
+            $table->string('url');
+            $table->string('type');
+            $table->string('name');
+            $table->string('location');
+            $table->string('email');
+            $table->string('bio');
+            $table->string('twitter_username');
+            $table->string('public_repos');
+            $table->string('followers');
+            $table->string('following');
+
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

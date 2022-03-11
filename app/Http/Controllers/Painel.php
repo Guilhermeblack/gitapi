@@ -50,7 +50,7 @@ class Painel extends Controller
             ->join('users', 'clientes.usr_id', '=', 'users.id' )
             ->where('users.id', '=', $cliente->id)
             ->select('clientes.*')
-            ->orderBy('nome')
+            ->orderBy('name')
             ->get();
 
         }else
@@ -89,15 +89,24 @@ class Painel extends Controller
                 curl_setopt($ch,CURLOPT_USERAGENT,'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13');
 
                 $dado =curl_exec($ch);
-                // dd($dado);
+                
                 curl_close($ch);
 
                 $clie = new Cliente;
+                // print_r($dado);
+                dd($clie);
+                
+                $lp = json_decode($dado,true);
 
-                $clie->usr_id = $cliente->id;
-                $clie->nome = $nome;
+                foreach( $lp as $d => $v){
+                    if($d == 'id'){
+                        $d = 'id_git';
+                    }
+                    $clie->$d = $dado->$d;
+                }
 
-                // $clie->tipo = $tipo;
+
+                dd($clie);
 
                 $clie->created_at = Carbon::now();
 
@@ -111,7 +120,7 @@ class Painel extends Controller
                 ->where('users.id', '=', $cliente->id)
                 ->where('clientes.deleted_at', null)
                 ->select('clientes.*')
-                ->orderBy('nome')
+                ->orderBy('name')
                 ->get();
 
                 // dd($cliente);
@@ -142,7 +151,7 @@ class Painel extends Controller
                 ->where('users.id', '=', $cliente->id)
                 ->where('clientes.deleted_at',null)
                 ->select('clientes.*')
-                ->orderBy('nome')
+                ->orderBy('name')
                 ->get();
 
                 return redirect()->route('cad', [
