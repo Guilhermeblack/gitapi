@@ -3,14 +3,12 @@
 @extends('base/base')
 
 @section('content')
-{{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"> --}}
+
 
 <div class="container-fluid">
     <script type="text/javascript">
 
-        // $(document).ready(function(){
-            // fazer o ajax e enviar o valor do botao para o campo:
+
             function monta_alt(value){
                 
                 
@@ -47,16 +45,29 @@
                 $('input#deletar').val(value);
             };
 
+            function infoc(value){
+                // alert(value);
+                $('#umcli'+value).toggle();
+                
+            };
+
+
+
+            $('.lin').mouseup(function(){
+
+                // alert('uaiia');
+                $(this).style.cursor = "pointer";
+                
+            });
+
             $('#add_cli').click(function(){
 
                 var valor = $('#add_cli').attr('value');
-                // valor = valor;
-                
 
                 $('input#logado').val(valor);
             });
             
-        // });
+
 
     </script>
 
@@ -95,36 +106,32 @@
             
         <div class="card-body">
             <div class="row">
-                {{-- <div class="col-md-6 text-nowrap">
-                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Show <select class="form-control form-control-sm custom-select custom-select-sm"><option value="10" selected>10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div>
-                </div>
-                <div class="col-md-6">
-                    <div class="text-md-right dataTables_filter" id="dataTable_filter"><label><input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search" /></label></div>
-                </div> --}}
+
             </div>
             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                 <table class="table my-0" id="dataTable">
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Email</th>
+                            <th>login</th>
                             <th>Data de Criação</th>
                             <th>Alterar/Excluir</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {{-- <h2>{{ $cadastros}}</h2> --}}
+
                     @if($cadastros)
                         @foreach($cadastros as $cad)
+
                         <div>
 
                             <tr>
                                 
-                                <td>{{ $cad->nome}}</td>
-                                <td>{{ $cad->email}}</td>
-                                <td>{{ date('d-m-Y', strtotime($cad->created_at))}}</td>
+                                <td  onmouseover="this.style.cursor = 'pointer';" onmouseout="this.style.cursor = 'auto';" onclick="infoc({{$cad->id}});">{{ $cad->name}}</td>
+                                <td onmouseover="this.style.cursor = 'pointer';" onmouseout="this.style.cursor = 'auto';" onclick="infoc({{$cad->id}});">{{ $cad->login}}</td>
+                                <td onmouseover="this.style.cursor = 'pointer';" onmouseout="this.style.cursor = 'auto';" onclick="infoc({{$cad->id}});">{{ date('d-m-Y', strtotime($cad->created_at))}}</td>
                                 <td style="padding-left:5%; ">
-                                    {{-- gerar rotina de exclusao e alteração --}}
+                                    <!-- {{-- gerar rotina de exclusao e alteração --}} -->
                                 <a class="btn btn-warning btn-sm d-none d-sm-inline-block" role="button" data-toggle="modal" data-target="#alt_cli" name="alt" id="{{$cad->id}}" onclick="monta_alt({{$cad->id}})" style="margin-right: 6px; color: rgba(255,255,255,0.8);" value="{{ $cad->id}}"><i class="far fa-edit text-white"></i></a>
                                 <a class="btn btn-danger btn-sm d-none d-sm-inline-block" role="button" data-toggle="modal" data-target="#del_cli"  name="dele" id="{{$cad->id}}" onclick="monta_del({{$cad->id}})" style="color: rgba(255,255,255,0.8);" value="{{ $cad->id}}"><i class="icon ion-android-cancel text-white"></i></a>
                                     
@@ -132,8 +139,14 @@
                                 
                             </tr>
                         </div>
+
+
+                        
+                      
+
                         @endforeach
                     @endif
+
                     </tbody>
                     <tfoot>
                         <tr>
@@ -162,29 +175,6 @@
                     <div class="form-group align-center" > <label><h3> Deseja mesmo deletar este usuário ?</h3></label></div>
                     
                     <button class="btn btn-danger btn-block text-warning mx-auto btn-user" type="submit">DELETAR</button>
-                    {{-- <h2>{{$cad->id}}</h2> --}}
-                    <hr/>
-                    <button class="btn btn-muted btn-block text-white d-lg-flex mx-auto justify-content-lg-center btn-user" type="button" data-dismiss="modal" style="background-color: rgb(220,65,65);width: 378px;padding-left: 22px;margin-left: 0px;">SAIR</button>
-                    <hr />
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<div role="dialog" id='alt_cli' tabindex="-1" class="modal text-dark mx-auto justify-content-xl-start" style="background-color: rgba(207,199,199,0.13);height: 648px;width: 75%;padding: 7px;margin: 16px;margin-left: 0px;">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="height: 76px;width: 100%;">
-                <h4 class="modal-title">Alterar cadastro</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
-            <div class="modal-body" style="width: 100%;margin: 3px;padding: 43px;">
-                <form class="user" method="post" action="{{url('cad')}}" id='alter_cli'>
-                    {{ csrf_field() }}
-                    <div id='form_alter'>
-
-                    </div>
-                    <div class="form-group"><input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Nova senha..." name="senha"  /></div>
-  
-                    <button class="btn btn-primary btn-block text-white mx-auto btn-user" type="submit">ALTERAR</button>
                     <hr/>
                     <button class="btn btn-muted btn-block text-white d-lg-flex mx-auto justify-content-lg-center btn-user" type="button" data-dismiss="modal" style="background-color: rgb(220,65,65);width: 378px;padding-left: 22px;margin-left: 0px;">SAIR</button>
                     <hr />
@@ -194,4 +184,42 @@
     </div>
 </div>
 
+@if($cadastros)
+@foreach($cadastros as $cad)
+  <!-- CLIENTE -->
+  <div role="dialog" id='umcli{{$cad->id}}'  tabindex="-1" class="modal  text-dark mx-2 " style="background-color: rgba(207,199,199,0.13);height: auto;width: 800px;padding: 7px;margin: 16px;">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+            <div class="modal-content" style="width: 100%;">
+                <div class="modal-header" style="width: 100%;">
+                    <h4 class="modal-title">Dados Cadastro</h4><button type="button" onclick="infoc({{$cad->id}});" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body" style="width: 100%;margin: 3px;padding: 43px;">
+
+                    
+                        
+                            <ul>
+                                @foreach($cad as $c => $v)
+                                    <li>{{$c}}: ____  {{$v}}</li>
+
+                                    
+
+                                    
+                                @endforeach
+                                    
+                            </ul>
+                            
+    
+
+                        
+
+
+                        <button class="btn btn-muted btn-block text-white d-lg-flex mx-auto justify-content-lg-center btn-user" type="button" data-dismiss="modal" onclick="infoc({{$cad->id}});" style="background-color: rgb(220,65,65);width: 378px;padding-left: 22px;margin-left: 0px;">SAIR</button>
+                        <hr />
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endforeach
+@endif
 @endsection

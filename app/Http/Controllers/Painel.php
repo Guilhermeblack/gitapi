@@ -26,9 +26,21 @@ class Painel extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-        return view('index', [
-            'cli'=> $user
+
+        $entidades = DB::table('clientes')
+            ->join('users', 'clientes.usr_id', '=', 'users.id' )
+            ->where('users.id', '=', $user->id)
+            ->where('clientes.deleted_at',null)
+            ->select('clientes.*')
+            ->orderBy('name')
+            ->get();
+
+        return view('cad_geral', [
+
+            'cli'=> $user,
+            'cadastros'=>$entidades
         ]);
+
     }
 
 
@@ -70,7 +82,7 @@ class Painel extends Controller
 
                 $var = $request->alter;
                 // dd($var);
-                $usr = DB::table('cliente')
+                $usr = DB::table('clientes')
                 ->where('id', $var)->get();
                 return $usr;
 
@@ -94,7 +106,7 @@ class Painel extends Controller
 
                 $clie = new Cliente;
                 // print_r($dado);
-                dd($clie);
+                // dd($clie);
                 
                 $lp = json_decode($dado,true);
 
@@ -102,11 +114,24 @@ class Painel extends Controller
                     if($d == 'id'){
                         $d = 'id_git';
                     }
-                    $clie->$d = $dado->$d;
+                    
+                    $clie->$d = $v;
+                    if($clie->$d === null){
+                        $clie->$d = '';
+                    }
+                    if(is_string($clie->$d)){
+                        $clie->$d = utf8_encode($clie->$d);
+                    }
+                    
+                }
+                // dd(auth()->user()->id);
+                $clie->usr_id = auth()->user()->id;
+                if($clie->email === null){
+                    $clie->email = $clie->login.'@git.com';
                 }
 
 
-                dd($clie);
+                // dd($cliente);
 
                 $clie->created_at = Carbon::now();
 
@@ -115,7 +140,8 @@ class Painel extends Controller
 
                 $clie->save();
 
-                $entidades = DB::table('cliente')
+
+                $entidades = DB::table('clientes')
                 ->join('users', 'clientes.usr_id', '=', 'users.id' )
                 ->where('users.id', '=', $cliente->id)
                 ->where('clientes.deleted_at', null)
@@ -123,7 +149,7 @@ class Painel extends Controller
                 ->orderBy('name')
                 ->get();
 
-                // dd($cliente);
+                
                 // $entidades->senha = Crypt::decrypt($entidades->senha);
 
                 return redirect()->route('cad', [
@@ -142,11 +168,11 @@ class Painel extends Controller
 
                 $client = $request->deletar;
                 // dd($request);
-                $usr = DB::table('cliente')
+                $usr = DB::table('clientes')
                 ->where('id', $client)
                 ->delete() ;
 
-                $entidades = DB::table('cliente')
+                $entidades = DB::table('clientes')
                 ->join('users', 'clientes.usr_id', '=', 'users.id' )
                 ->where('users.id', '=', $cliente->id)
                 ->where('clientes.deleted_at',null)
@@ -176,6 +202,19 @@ class Painel extends Controller
                         'cadastros'=> $entidades
                     ])->withErrors('Cadastro invalido!');
                 
+
+        }else{
+
+            $entidades = DB::table('clientes')
+            ->join('users', 'clientes.usr_id', '=', 'users.id' )
+            ->where('users.id', '=', $cliente->id)
+            ->where('clientes.deleted_at',null)
+            ->select('clientes.*')
+            ->orderBy('name')
+            ->get();
+
+            // dd($entidades);
+
 
         }
                     
